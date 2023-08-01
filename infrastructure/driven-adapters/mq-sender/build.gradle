@@ -1,0 +1,5 @@
+dependencies {
+    implementation project(':model')
+    implementation 'com.github.bancolombia:commons-jms-mq:1.1.0'
+    implementation 'org.springframework:spring-context'
+}
