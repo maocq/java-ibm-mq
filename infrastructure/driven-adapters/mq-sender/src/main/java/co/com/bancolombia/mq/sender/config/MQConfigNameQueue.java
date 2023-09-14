@@ -1,5 +1,9 @@
 package co.com.bancolombia.mq.sender.config;
 
+import co.com.bancolombia.commons.jms.api.MQQueueManagerSetter;
+import co.com.bancolombia.commons.jms.api.MQQueuesContainer;
+import co.com.bancolombia.commons.jms.mq.config.MQProperties;
+import co.com.bancolombia.commons.jms.mq.utils.MQUtils;
 import co.com.bancolombia.commons.jms.security.SSLContextUtils;
 import com.ibm.mq.jakarta.jms.MQConnectionFactory;
 import com.ibm.mq.jakarta.jms.MQQueue;
@@ -23,8 +27,26 @@ public class MQConfigNameQueue {
 
     @Bean
     public Destination destinationQueue(@Value("${commons.jms.input-queue}") String queue) throws JMSException {
-        return new MQQueue(queue);
+        var mqQueue = new MQQueue(queue);
+        MQUtils.setQMName(mqQueue, "QM1");
+        return mqQueue;
     }
+
+    @Bean
+    public String inputQueue(@Value("${commons.jms.input-queue}") String queue) {
+        return queue;
+    }
+
+    @Bean
+    public MQQueueManagerSetter qmSetter(MQProperties properties, MQQueuesContainer container) {
+        return (jmsContext, queue) -> {
+            System.out.println("Self assigning Queue Manager to listening queue: {}" + queue.toString());
+            MQUtils.setQMName(queue, "QM1");
+            container.registerQueue(properties.getInputQueue(), queue);
+        };
+    }
+
+
 
     @Bean
     //@Profile("!local")

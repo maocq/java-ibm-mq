@@ -2,6 +2,7 @@ package co.com.bancolombia.mq.sender;
 
 import co.com.bancolombia.commons.jms.api.MQMessageSelectorListener;
 import co.com.bancolombia.commons.jms.api.MQMessageSender;
+import co.com.bancolombia.commons.jms.api.MQQueuesContainer;
 import co.com.bancolombia.commons.jms.mq.EnableMQMessageSender;
 import co.com.bancolombia.commons.jms.mq.EnableMQSelectorMessageListener;
 import co.com.bancolombia.model.services.ReqReplyServiceFixedQueue;
@@ -20,10 +21,11 @@ import jakarta.jms.Message;
 @EnableMQSelectorMessageListener // Enable it to retrieve a specific message by correlationId
 public class SampleMQMessageSender implements ReqReplyServiceFixedQueue {
     private final MQMessageSender sender;
-//    private final MQQueuesContainer container; // Inject it to reference a queue
+    private final MQQueuesContainer container; // Inject it to reference a queue (input-queue-set-queue-manager: true)
     private final MQMessageSelectorListener listener; // Inject it to retrieve a specific message by correlationId
 
     private final Destination destinationQueue;
+    private final String inputQueue;
 
     public Mono<String> requestReply(String message) {
         return send(message)
@@ -33,14 +35,15 @@ public class SampleMQMessageSender implements ReqReplyServiceFixedQueue {
     private Mono<String> send(String message) {
         return sender.send(context -> {
             Message textMessage = context.createTextMessage(message);
-            textMessage.setJMSReplyTo(destinationQueue);
+            //textMessage.setJMSReplyTo(destinationQueue);
+            textMessage.setJMSReplyTo(container.get(inputQueue));
             return textMessage;
         });
     }
 
     // Enable it to retrieve a specific message by correlationId
     private Mono<String> getResult(String correlationId) {
-        return listener.getMessage(correlationId)
+        return listener.getMessage(correlationId, 5000, container.get(inputQueue))
                 .map(this::extractResponse);
     }
 

@@ -31,6 +31,7 @@ commons:
     output-queue: "DEV.QUEUE.2"
     producer-ttl: 0
     reactive: true
+    input-queue-set-queue-manager: true
 ibm:
   mq:
     channel: "DEV.APP.SVRCONN"
