@@ -36,3 +36,26 @@ ibm:
   mq:
     channel: "DEV.APP.SVRCONN"
     user: "app"
+
+#commons:
+#  jms:
+#    input-concurrency: 10
+#    input-queue: "STI_CONSULTACARTERAPRUEBA.QL.RES"
+#    output-concurrency: 10
+#    output-queue: "INT_ADMINDESEMBOLCARTERA_STI.QL.REQ"
+#    producer-ttl: 0
+#    reactive: true
+#    host: 10.9.2.121
+#    input-queue-set-queue-manager: true
+#
+#ibm:
+#  mq:
+#    conn-name: "10.9.2.121(1448)"
+#    queue-manager: "DQMGRIBMICORP01"
+#    channel: "ADMIN.SVRCONN"
+#    user: "CNXQDBV1"
+#    password: ""
+#    additional-properties:
+#      XMSC_WMQ_QMGR_CCSID: 1208
+#      XMSC_WMQ_CONNECTION_MODE: 1
+#      XMSC_USER_AUTHENTICATION_MQCSP: false
