@@ -35,3 +35,6 @@ ibm:
     channel: "DEV.APP.SVRCONN"
     user: "app"
     password: "pass"
+adapter:
+  mq:
+    ccdtUrl: "url"
