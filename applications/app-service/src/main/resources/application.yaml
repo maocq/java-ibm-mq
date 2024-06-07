@@ -22,3 +22,16 @@ management:
         enabled: true
 cors:
   allowed-origins: "http://localhost:4200,http://localhost:8080"
+commons:
+  jms:
+    input-queue: "DEV.QUEUE.1"
+    output-concurrency: 10
+    output-queue: "DEV.QUEUE.2"
+    producer-ttl: 0
+    reactive: true
+ibm:
+  mq:
+    conn-name: "127.0.0.1(1414)"
+    channel: "DEV.APP.SVRCONN"
+    user: "app"
+    password: "pass"
