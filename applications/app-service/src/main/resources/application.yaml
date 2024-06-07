@@ -24,7 +24,10 @@ cors:
   allowed-origins: "http://localhost:4200,http://localhost:8080"
 commons:
   jms:
-    input-queue: "DEV.QUEUE.1"
+    input-queue: "DEV.QUEUE.3"
+    input-concurrency: 10
+    input-queue-alias: ""
+    rp-input-queue: "DEV.QUEUE.1"
     output-concurrency: 10
     output-queue: "DEV.QUEUE.2"
     producer-ttl: 0
