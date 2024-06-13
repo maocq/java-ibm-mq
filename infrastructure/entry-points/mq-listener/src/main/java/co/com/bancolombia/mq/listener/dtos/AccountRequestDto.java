@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.beanio.annotation.Field;
 import org.beanio.annotation.Record;
+import org.beanio.annotation.Segment;
 
 @Data
 @Builder
@@ -14,8 +15,11 @@ import org.beanio.annotation.Record;
 @Record(name = "AccountRequestDto")
 public class AccountRequestDto {
 
-    @Field(name = "header", length = 20)
-    private String header;
+    @Segment(name = "header")
+    private HeaderDto header;
+    /*@Field(name = "header", length = 20)
+    private String header;*/
+
     @Field(name = "name", length = 8)
     private String name;
     @Field(name = "balance", length = 10)
