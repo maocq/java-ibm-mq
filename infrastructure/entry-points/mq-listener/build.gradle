@@ -4,4 +4,6 @@ dependencies {
     implementation 'com.github.bancolombia:commons-jms-mq:2.2.7'
     implementation 'org.springframework:spring-context'
     implementation 'io.micrometer:micrometer-core'
+
+    implementation 'com.github.beanio:beanio:3.0.2'
 }
